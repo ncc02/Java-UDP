@@ -1,0 +1,25 @@
+import javax.swing.*;
+import javax.swing.JFrame;
+
+public class Client extends JFrame{
+
+	public static void main(String[] args) {
+		new Client();
+	}
+
+	public Client() {
+		this.setTitle("Client Sent String");
+		this.setSize(800, 600);
+		this.setDefaultCloseOperation(3);
+		
+		this.setLayout(null);
+		
+		JLabel lbl= new JLabel("Nhập chuỗi cần gửi: ");
+		JTextField txt= new JTextField();
+		JButton btn= new JButton("Submit");
+		
+		
+		
+		this.setVisible(true);
+	}
+}

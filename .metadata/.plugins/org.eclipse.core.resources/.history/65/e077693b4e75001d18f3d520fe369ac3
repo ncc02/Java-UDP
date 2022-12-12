@@ -1,0 +1,79 @@
+import java.io.IOException;
+import java.net.DatagramPacket;
+import java.net.DatagramSocket;
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.swing.JFrame;
+
+public class Client extends JFrame implements Runnable {
+
+	public static void main(String[] args) {
+		new Client();
+	}
+	
+	public Client() {
+		this.setSize(800, 500);
+		this.setDefaultCloseOperation(3);
+		
+		new Thread(this).start();
+		
+		this.setVisible(true);
+	}
+
+	@Override
+	public void run() {
+		try {
+			DatagramSocket tt=new DatagramSocket();
+			
+			List<String> ltien= new ArrayList<String>();
+			ltien.add("USD");
+			ltien.add("EUR");
+			ltien.add("JPY");
+				
+			String cmd="ExchangeRate";
+			while(true) {
+				
+				for(String s:ltien) {
+					
+					String content= cmd + s + "toVND";
+					DatagramPacket lt=new DatagramPacket(content.getBytes(), content.length());
+					tt.send(lt);
+				}
+				Thread.sleep(1000);
+			}
+
+		} catch (IOException | InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+				
+	}
+}
+
+
+class ClientReceive extends Thread{
+	Client cl;
+	public ClientReceive(Client cl) {
+		this.cl= cl;
+	}
+	public void run() {
+		try {
+			DatagramSocket tt=new DatagramSocket();
+			
+			
+			String cmd="ExchangeRate";
+			while(true) {
+				DatagramPacket lt=new DatagramPacket(new byte[100], 100);
+				tt.receive(lt);
+				
+				String content= new String(lt.getData()).substring(lt.getLength());
+				System.out.println(content);
+			}
+
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+}

@@ -1,0 +1,12 @@
+import javax.swing.JFrame;
+
+public class Client extends JFrame{
+
+	public static void main(String[] args) {
+		new Client();
+	}
+
+	public Client() {
+		this.setTitle("");
+	}
+}

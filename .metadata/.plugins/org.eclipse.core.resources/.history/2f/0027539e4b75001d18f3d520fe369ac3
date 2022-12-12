@@ -1,0 +1,14 @@
+//server luong 1: random ty gia, luong 2: nhan tin tu client va phan hoi lai
+public class Server {
+	public static void main(String args[]) {
+		new Server();
+	}
+	
+	public Server() {
+		
+	}
+}
+
+class RandomRate extends Thread{
+	
+}

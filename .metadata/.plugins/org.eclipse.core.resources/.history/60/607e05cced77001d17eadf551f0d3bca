@@ -1,0 +1,108 @@
+import java.awt.EventQueue;
+
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.border.EmptyBorder;
+import javax.swing.GroupLayout;
+import javax.swing.GroupLayout.Alignment;
+import javax.swing.JLabel;
+import javax.swing.LayoutStyle.ComponentPlacement;
+import javax.swing.JTextField;
+import javax.swing.JButton;
+import java.awt.Font;
+
+public class Client extends JFrame {
+
+	private JPanel contentPane;
+	private JTextField txtRequire;
+	private JTextField txtResponse;
+
+	/**
+	 * Launch the application.
+	 */
+	public static void main(String[] args) {
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					Client frame = new Client();
+					frame.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+	}
+
+	/**
+	 * Create the frame.
+	 */
+	public Client() {
+		setTitle("UDP Client");
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setBounds(100, 100, 599, 342);
+		contentPane = new JPanel();
+		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+
+		setContentPane(contentPane);
+		
+		JLabel lblClient = new JLabel("Client require :");
+		lblClient.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		
+		JLabel lblServer = new JLabel("Server response :");
+		lblServer.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		
+		txtRequire = new JTextField();
+		txtRequire.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		txtRequire.setColumns(10);
+		
+		txtResponse = new JTextField();
+		txtResponse.setEditable(false);
+		txtResponse.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		txtResponse.setColumns(10);
+		
+		JButton btnSubmit = new JButton("Submit");
+		btnSubmit.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		GroupLayout gl_contentPane = new GroupLayout(contentPane);
+		gl_contentPane.setHorizontalGroup(
+			gl_contentPane.createParallelGroup(Alignment.LEADING)
+				.addGroup(Alignment.TRAILING, gl_contentPane.createSequentialGroup()
+					.addGroup(gl_contentPane.createParallelGroup(Alignment.TRAILING)
+						.addGroup(gl_contentPane.createSequentialGroup()
+							.addContainerGap()
+							.addComponent(btnSubmit, GroupLayout.PREFERRED_SIZE, 105, GroupLayout.PREFERRED_SIZE))
+						.addGroup(gl_contentPane.createSequentialGroup()
+							.addGap(25)
+							.addGroup(gl_contentPane.createParallelGroup(Alignment.TRAILING)
+								.addGroup(Alignment.LEADING, gl_contentPane.createSequentialGroup()
+									.addPreferredGap(ComponentPlacement.RELATED)
+									.addComponent(lblServer, GroupLayout.PREFERRED_SIZE, 179, GroupLayout.PREFERRED_SIZE)
+									.addGap(18)
+									.addComponent(txtResponse, GroupLayout.DEFAULT_SIZE, 322, Short.MAX_VALUE))
+								.addGroup(Alignment.LEADING, gl_contentPane.createSequentialGroup()
+									.addComponent(lblClient, GroupLayout.PREFERRED_SIZE, 170, GroupLayout.PREFERRED_SIZE)
+									.addGap(18)
+									.addComponent(txtRequire, GroupLayout.DEFAULT_SIZE, 331, Short.MAX_VALUE)))))
+					.addGap(31))
+		);
+		gl_contentPane.setVerticalGroup(
+			gl_contentPane.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_contentPane.createSequentialGroup()
+					.addGap(38)
+					.addGroup(gl_contentPane.createParallelGroup(Alignment.TRAILING, false)
+						.addGroup(gl_contentPane.createSequentialGroup()
+							.addComponent(lblClient, GroupLayout.PREFERRED_SIZE, 25, GroupLayout.PREFERRED_SIZE)
+							.addGap(75))
+						.addGroup(gl_contentPane.createSequentialGroup()
+							.addComponent(txtRequire)
+							.addGap(50)))
+					.addPreferredGap(ComponentPlacement.RELATED)
+					.addComponent(btnSubmit, GroupLayout.PREFERRED_SIZE, 32, GroupLayout.PREFERRED_SIZE)
+					.addGap(45)
+					.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
+						.addComponent(txtResponse, GroupLayout.PREFERRED_SIZE, 48, GroupLayout.PREFERRED_SIZE)
+						.addComponent(lblServer, GroupLayout.PREFERRED_SIZE, 28, GroupLayout.PREFERRED_SIZE))
+					.addGap(35))
+		);
+		contentPane.setLayout(gl_contentPane);
+	}
+}

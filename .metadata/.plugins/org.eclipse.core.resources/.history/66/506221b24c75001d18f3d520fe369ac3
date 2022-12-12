@@ -1,0 +1,22 @@
+import java.util.HashMap;
+import java.util.Map;
+
+//server luong 1: random ty gia, luong 2: nhan tin tu client va phan hoi lai
+public class Server implements Runnable{
+	public static void main(String args[]) {
+		new Server();
+	}
+	
+	Map<String, Double> tygia= new HashMap<String, Double>();
+	
+	public Server() {
+		
+	}
+
+	@Override
+	public void run() {
+		// TODO Auto-generated method stub
+		
+	}
+}
+

@@ -1,0 +1,57 @@
+import java.io.IOException;
+import java.net.DatagramPacket;
+import java.net.DatagramSocket;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+
+public class Server {
+
+	public static void main(String[] args) {
+		new Server();
+
+	}
+
+	public Server() {
+		try {
+			DatagramSocket tt= new DatagramSocket(5000);
+			while(true) {
+				//nhan thu tu client
+				DatagramPacket lt= new DatagramPacket(new byte[100], 100);
+				tt.receive(lt);
+				
+				//xu li la thu
+				String content= new String(lt.getData()).substring(0, lt.getLength());
+				if (isDateValid(content)) {
+					LocalDate ldate7= LocalDate.parse(content).plusDays(7);	//chyen string sang localdate roi + 7day
+					content = "Date of next 7 days : " + ldate7.format(DateTimeFormatter.ofPattern(DATE_FORMAT));
+				}
+				else {
+					content = "Date of now : " + LocalDate.now().format(DateTimeFormatter.ofPattern(DATE_FORMAT)); //ldate with format
+				}
+				
+				//phan hoi cho client
+				lt= new DatagramPacket(content.getBytes(), content.length(), lt.getAddress(), lt.getPort());
+				tt.send(lt);
+			}
+			
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	final static String DATE_FORMAT = "dd/MM/yyyy";
+	public static boolean isDateValid(String dateString) 
+	{
+	        try {
+	        	DateTimeFormatter dtf = DateTimeFormatter.ofPattern(DATE_FORMAT); //dinh dang format
+	        	LocalDate ldate= LocalDate.parse(dateString, dtf);
+	        	
+	            return true;
+	        } catch (Exception e) {
+	            return false;
+	        }
+	}
+}
+
+

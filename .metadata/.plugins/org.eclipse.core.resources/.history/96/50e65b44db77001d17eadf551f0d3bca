@@ -1,0 +1,52 @@
+import java.io.IOException;
+import java.net.DatagramPacket;
+import java.net.DatagramSocket;
+import java.sql.Date;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+
+public class Server {
+	public static void main(String args[]) {
+		new Server();
+	}
+	final static String DATE_FORMAT = "dd/MM/yyyy";
+
+	public static boolean isDateValid(String date) 
+	{
+	        try {
+	            DateFormat df = new SimpleDateFormat(DATE_FORMAT);
+	            df.setLenient(false);
+	            df.parse(date);
+	            return true;
+	        } catch (ParseException e) {
+	            return false;
+	        }
+	}
+	
+	public Server() {
+		try {
+			DatagramSocket tt= new DatagramSocket(5000);
+			while(true) {
+				DatagramPacket lt= new DatagramPacket(new byte[100], 100);
+				tt.receive(lt);
+				String content= new String(lt.getData()).substring(0, lt.getLength());
+				
+				
+				if (isDateValid(content)) {
+					System.out.println("day la du lieu date");
+				}
+				else {
+					DateFormat df = new SimpleDateFormat(DATE_FORMAT);
+		            content = df.format(java.time.LocalDate.now());
+					System.out.println();
+				}
+			}
+			
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+}

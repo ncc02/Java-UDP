@@ -1,0 +1,60 @@
+package BieuThuc;
+import java.io.IOException;
+import java.net.DatagramPacket;
+import java.net.DatagramSocket;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+
+import javax.script.ScriptEngine;
+import javax.script.ScriptEngineManager;
+import javax.script.ScriptException;
+
+public class Server {
+
+	public static void main(String[] args) {
+		new Server();
+
+	}
+
+	public Server() {
+		try {
+			DatagramSocket tt= new DatagramSocket(5000);
+			while(true) {
+				//nhan thu tu client
+				DatagramPacket lt= new DatagramPacket(new byte[100], 100);
+				tt.receive(lt);
+				
+				//xu li la thu
+				String bieuThuc= new String(lt.getData()).substring(0, lt.getLength());
+				String content= "= " + String.valueOf(Tinh(bieuThuc));
+				
+				//phan hoi cho client
+				lt= new DatagramPacket(content.getBytes(), content.length(), lt.getAddress(), lt.getPort());
+				tt.send(lt);
+			}
+			
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	public double Tinh(String a) {
+	    try {
+	    	 	String operators[]= a.split("[0-9]+");
+	    	    String operands[]= a.split("[+-]");
+	    	    int agregate = Integer.parseInt(operands[0]);
+	    	    for(int i=1;i<operands.length;i++){
+	    	        if(operators[i].equals("+"))
+	    	            agregate += Integer.parseInt(operands[i]);
+	    	        else 
+	    	            agregate -= Integer.parseInt(operands[i]);
+	    	    }
+		
+	    } catch (Exception e) {
+			return -9e9;
+		}
+	}
+}
+
+

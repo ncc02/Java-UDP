@@ -1,0 +1,46 @@
+import javax.swing.JFrame;
+
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+import javax.swing.*;
+
+public class Client extends JFrame implements ActionListener{
+
+	public static void main(String[] args) {
+		new Client();
+
+	}
+	
+	JTextField txtRequ;
+	JButton btnSubmit;
+	JTextField txtResp;
+	
+	
+	public Client() {
+		this.setTitle("UDP Client");
+		this.setSize(400, 300);
+		this.setDefaultCloseOperation(3);
+		this.setLayout(null);
+		this.setVisible(true);
+		
+		txtRequ= new JTextField("Client require");
+		txtRequ.setBounds(50, 50, 50, 50);
+		btnSubmit= new JButton("Submit");
+		btnSubmit.addActionListener(this);
+		btnSubmit.setBounds(50, 50, 50, 50);
+		txtResp= new JTextField("Server response");
+		txtResp.setEditable(false);
+		txtResp.setBounds(50, 50, 50, 50);
+		
+		
+	}
+
+
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+}

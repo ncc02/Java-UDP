@@ -1,0 +1,67 @@
+import java.io.IOException;
+import java.net.DatagramPacket;
+import java.net.DatagramSocket;
+import java.net.ServerSocket;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+
+public class Server {
+
+	public static void main(String[] args) {
+		new Server();
+
+	}
+
+	public Server() {
+		try {
+			ServerSocket server = new ServerSocket(5000);
+			while (true) {
+				Socket soc = server.accept();
+				tt.receive(lt);
+				
+				//xu li la thu
+				String content= new String(lt.getData()).substring(0, lt.getLength());
+				if (isDateValid(content)) {
+					if (isStringPrime(content))
+						content= "Day la 1 ngay tuyet voi";
+				}
+				
+				//phan hoi cho client
+				lt= new DatagramPacket(content.getBytes(), content.length(), lt.getAddress(), lt.getPort());
+				tt.send(lt);
+			}
+			
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	final static String DATE_FORMAT = "dd/MM/yyyy";
+	public static boolean isDateValid(String dateString) 
+	{
+	        try {
+	        	DateTimeFormatter dtf = DateTimeFormatter.ofPattern(DATE_FORMAT); //dinh dang format
+	        	LocalDate ldate= LocalDate.parse(dateString, dtf);
+	        	
+	            return true;
+	        } catch (Exception e) {
+	            return false;
+	        }
+	}
+	
+	public Boolean isStringPrime(String s) {
+		String[] a=s.split("/");
+		int n0= Integer.parseInt(a[0]);
+		int n1= Integer.parseInt(a[1]);
+		int n2= Integer.parseInt(a[2]);
+		return isPrime(n0) && isPrime(n1) && isPrime(n2);
+	}
+	public Boolean isPrime(int n) {
+		for(int i=2; i*i<=n; i++)
+			if (n%i==0) return false;
+		return n>=2;
+	}
+}
+
+
